@@ -5,4 +5,15 @@ Everything is working except for 'power on' which has issues if the TV's have be
 
 Future potential improvements:
 - Add support for the /launch (/Launch on my systems) API to direclty load channels.  Need to determine how to get each apps APP_ID.
-- Add support to change volume by an arbitrary # of levels
+~~ - Add support to change volume by an arbitrary # of levels ~~ (Done)
+
+Keyboard shortcuts supported:
+============================================
+Up/Down/Left/Right arrows for navigation
+Enter for select
+M to mute
+J to incrase volume
+K to decrease volume
+H to switch input to home
+C to switch input to HDMI 1 (Chromecast in my case)
+1-5 to toggle TV as in scope for next operation
