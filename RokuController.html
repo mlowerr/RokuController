@@ -1,217 +1,227 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>The Stronghold TV Wall Controller</title>
 
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<head>
+    <title>The Stronghold TV Wall Controller</title>
 
-	</head>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+</head>
 
-	<body>
+<body>
 
+    <P>
+        <B>The Stronghold TV Wall Controller</B>
+    </P>
 
+    <hr/>
 
-		<P><B>The Stronghold TV Wall Controller</B></P> 
-		<hr/>
-	
-		<P> Select the TV(s) to operate on:</P>
-		<TABLE>
-			<TR>
-				<TD>
-					<LABEL for="tv1"><input type="checkbox" name="tv" value="tv1" id="tv1"/>TV 1</LABEL>
-				</TD>
-				<TD>
-					<LABEL for="tv2"><input type="checkbox" name="tv" value="tv2" id="tv2"/>TV 2</LABEL>
-				</TD>
-				<TD>
-					<LABEL for="tv3"><input type="checkbox" name="tv" value="tv3" id="tv3"/>TV 3</LABEL>
-				</TD>
-				<TD>
-					<LABEL for="tv4"><input type="checkbox" name="tv" value="tv4" id="tv4"/>TV 4</LABEL>
-				</TD>
-				<TD>
-					<LABEL for="tv5"><input type="checkbox" name="tv" value="tv5" id="tv5"/>TV 5</LABEL>
-				</TD>
-			</TR>
-		</TABLE>
+    <P> Select the TV(s) to operate on:</P>
 
-		<button id="tvToggleBtn">Toggle all TV's</button>
+    <TABLE>
+        <TR>
+            <TD>
+                <LABEL for="tv1"><input type="checkbox" name="tv" value="tv1" id="tv1"/>TV 1</LABEL>
+            </TD>
+            <TD>
+                <LABEL for="tv2"><input type="checkbox" name="tv" value="tv2" id="tv2"/>TV 2</LABEL>
+            </TD>
+            <TD>
+                <LABEL for="tv3"><input type="checkbox" name="tv" value="tv3" id="tv3"/>TV 3</LABEL>
+            </TD>
+            <TD>
+                <LABEL for="tv4"><input type="checkbox" name="tv" value="tv4" id="tv4"/>TV 4</LABEL>
+            </TD>
+            <TD>
+                <LABEL for="tv5"><input type="checkbox" name="tv" value="tv5" id="tv5"/>TV 5</LABEL>
+            </TD>
+        </TR>
+    </TABLE>
 
-		<br/><br/>
+    <button id="tvToggleBtn">Toggle all TV's</button>
 
-		<button id="powerOnBtn">TV On</button>
-		<button id="powerOffBtn">TV Off</button>
-		
-		<br/><br/>
+    <br/><br/>
 
-		<button id="hdmi1Btn">Chromecast Input</button>
-		<button id="homeBtn">Home Screen</button>
+    <button id="powerOnBtn">TV On</button>
+    <button id="powerOffBtn">TV Off</button>
 
-		<br/><br/>
+    <br/><br/>
 
-		<button id="volumeUpBtn">Volume Up</button>
-		<button id="volumeDownBtn">Volume Down</button>
-		<button id="volumeMuteBtn">Mute</button>
+    <button id="hdmi1Btn">Chromecast Input</button>
+    <button id="homeBtn">Home Screen</button>
 
-		<br/><br/>
+    <br/><br/>
 
-		<button id="backBtn">Back</button>
-		<button id="upBtn">Up</button>
-		<button id="downBtn">Down</button>
-		<button id="leftBtn">Left</button>
-		<button id="rightBtn">Right</button>
+    <button id="volumeUpBtn">Volume Up</button>
+    <button id="volumeDownBtn">Volume Down</button>
+    <button id="volumeMuteBtn">Mute</button>
 
+    <br/><br/>
 
-<script>
-
-	// Roku remote reference: https://developer.roku.com/docs/developer-program/debugging/external-control-api.md
-
-	const tvArray = {tv1: "http://192.168.86.40:8060",
-                     tv2: "http://192.168.86.43:8060",
-                     tv3: "http://192.168.86.41:8060",
-                     tv4: "http://192.168.86.29:8060",
-                     tv5: "http://192.168.86.42:8060"};
-
-	//Functions associated with determining which TV's are in scope for operations
-
-	const tvToggleBtn = document.querySelector('#tvToggleBtn');
-	tvToggleBtn.onclick = checkAll;
-	const cbs = document.querySelectorAll('input[name="tv"]');
+    <button id="backBtn">Back</button>
+    <button id="upBtn">Up</button>
+    <button id="downBtn">Down</button>
+    <button id="leftBtn">Left</button>
+    <button id="rightBtn">Right</button>
 
 
-	function check(checked = true) {
-//		const cbs = document.querySelectorAll('input[name="tv"]');
-		cbs.forEach( (cb) => {
-			cb.checked = checked;
-		});
-	}
+    <script>
+        // Roku remote reference: https://developer.roku.com/docs/developer-program/debugging/external-control-api.md
 
-	function checkAll() {
-		check();
-		this.onclick = uncheckAll;
-	}
+        const tvArray = {
+            tv1: "http://192.168.86.40:8060",
+            tv2: "http://192.168.86.43:8060",
+            tv3: "http://192.168.86.41:8060",
+            tv4: "http://192.168.86.29:8060",
+            tv5: "http://192.168.86.42:8060"
+        };
 
-	function uncheckAll() {
-		check(false);
-		this.onclick = checkAll;
-	}
+        //Functions associated with determining which TV's are in scope for operations
 
+        const tvToggleBtn = document.querySelector('#tvToggleBtn');
+        tvToggleBtn.onclick = checkAll;
+        const cbs = document.querySelectorAll('input[name="tv"]');
 
-	//Helper function to send the post request(s) for all operations
-	function postRequest(cb, operation) {
-		fetch( tvArray[cb.id].concat("/keypress/").concat(operation).toString(), {method: "POST"})
-		.then(res => {console.log("done")})
-	}
+        function check(checked = true) {
+            cbs.forEach((cb) => {
+                cb.checked = checked;
+            });
+        }
 
-	//Functions associated with TV power
+        function checkAll() {
+            check();
+            this.onclick = uncheckAll;
+        }
 
-	//tv on
-	powerOnBtn.onclick = powerOn;
-	function powerOn() {
-		cbs.forEach( (cb) => {
-			if(cb.checked) { 
-				postRequest(cb, "PowerOn");
-			}
-		})
-	}
+        function uncheckAll() {
+            check(false);
+            this.onclick = checkAll;
+        }
 
-	//tv off
-	powerOffBtn.onclick = powerOff;
-	function powerOff() {
-		cbs.forEach( (cb) => {
-			if(cb.checked) { 
-				postRequest(cb, "PowerOff");
-			}
-		})
-	}
+        //Helper function to send the post request(s) for all operations
+        function postRequest(cb, operation) {
+            fetch(tvArray[cb.id].concat("/keypress/").concat(operation), {
+                    method: "POST"
+                })
+                .then(res => {
+                    console.log("done")
+                })
+        }
 
-	//Functions associated with TV inputs
-	
-	hdmi1Btn.onclick = setHDMI1Input;
-	function setHDMI1Input() {
-		cbs.forEach( (cb) => {
-			if(cb.checked) { 
-				postRequest(cb, "InputHDMI1");
-			}
-		})
-	}	
+        //Functions associated with TV power
 
-	homeBtn.onclick = setHomeInput;
-	function setHomeInput() {
-		cbs.forEach( (cb) => {
-			if(cb.checked) { 
-				postRequest(cb, "Home");
-			}
-		})
-	}
-	//Functions associated with TV volume
+        //tv on
+        powerOnBtn.onclick = powerOn;
 
-	//volume up
-	volumeUpBtn.onclick = volUp;
-	function volUp() {
-		cbs.forEach( (cb) => {
-			if(cb.checked) { 
-				postRequest(cb, "VolumeUp");
-			}
-		})
-	}
+        function powerOn() {
+            cbs.forEach((cb) => {
+                if (cb.checked) {
+                    postRequest(cb, "PowerOn");
+                }
+            })
+        }
 
-	//volume down
-	volumeDownBtn.onclick = volDown;
-	function volDown() {
-		cbs.forEach( (cb) => {
-			if(cb.checked) { 
-				postRequest(cb, "VolumeDown") 
-			}
-		})
-	}
+        //tv off
+        powerOffBtn.onclick = powerOff;
 
-	//volume muted
-	volumeMuteBtn.onclick = volMute;
-	function volMute() {
-		cbs.forEach( (cb) => {
-			if(cb.checked) { 
-				postRequest(cb, "VolumeMute") 
-			}
-		})
-	}
+        function powerOff() {
+            cbs.forEach((cb) => {
+                if (cb.checked) {
+                    postRequest(cb, "PowerOff");
+                }
+            })
+        }
 
-	// Functions for controlling movement
+        //Functions associated with TV inputs
 
-	backBtn.onclick = keyActionBack;
-	upBtn.onclick = keyActionUp;
-	downBtn.onclick = keyActionDown;
-	leftBtn.onclick = keyActionLeft;
-	rightBtn.onclick = keyActionRight;
+        hdmi1Btn.onclick = setHDMI1Input;
 
-	function keyActionBack(){
-		keyAction("Back");
-	}
+        function setHDMI1Input() {
+            cbs.forEach((cb) => {
+                if (cb.checked) {
+                    postRequest(cb, "InputHDMI1");
+                }
+            })
+        }
 
-	function keyActionUp(){
-		keyAction("Up");
-	}
+        homeBtn.onclick = setHomeInput;
 
-	function keyActionDown(){
-		keyAction("Down");
-	}
+        function setHomeInput() {
+            cbs.forEach((cb) => {
+                if (cb.checked) {
+                    postRequest(cb, "Home");
+                }
+            })
+        }
+        //Functions associated with TV volume
 
-	function keyActionLeft(){
-		keyAction("Left");
-	}
+        //volume up
+        volumeUpBtn.onclick = volUp;
 
-	function keyActionRight(){
-		keyAction("Right");
-	}
+        function volUp() {
+            cbs.forEach((cb) => {
+                if (cb.checked) {
+                    postRequest(cb, "VolumeUp");
+                }
+            })
+        }
 
-	function keyAction( reqAction ) {
-		cbs.forEach( (cb) => {
-			if(cb.checked) { 
-				postRequest(cb, reqAction.toString()); 
-			}
-		})
-	}
+        //volume down
+        volumeDownBtn.onclick = volDown;
 
-</script>
+        function volDown() {
+            cbs.forEach((cb) => {
+                if (cb.checked) {
+                    postRequest(cb, "VolumeDown")
+                }
+            })
+        }
+
+        //volume muted
+        volumeMuteBtn.onclick = volMute;
+
+        function volMute() {
+            cbs.forEach((cb) => {
+                if (cb.checked) {
+                    postRequest(cb, "VolumeMute")
+                }
+            })
+        }
+
+        // Functions for controlling movement
+
+        backBtn.onclick = keyActionBack;
+        upBtn.onclick = keyActionUp;
+        downBtn.onclick = keyActionDown;
+        leftBtn.onclick = keyActionLeft;
+        rightBtn.onclick = keyActionRight;
+
+        function keyActionBack() {
+            keyAction("Back");
+        }
+
+        function keyActionUp() {
+            keyAction("Up");
+        }
+
+        function keyActionDown() {
+            keyAction("Down");
+        }
+
+        function keyActionLeft() {
+            keyAction("Left");
+        }
+
+        function keyActionRight() {
+            keyAction("Right");
+        }
+
+        function keyAction(reqAction) {
+            cbs.forEach((cb) => {
+                if (cb.checked) {
+                    postRequest(cb, reqAction);
+                }
+            })
+        }
+    </script>
 
 </html>
