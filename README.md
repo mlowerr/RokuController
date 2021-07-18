@@ -10,10 +10,17 @@ Future potential improvements:
 Keyboard shortcuts supported:
 ============================================
 Up/Down/Left/Right arrows for navigation
+
 Enter for select
+
 M to mute
+
 J to incrase volume
+
 K to decrease volume
+
 H to switch input to home
+
 C to switch input to HDMI 1 (Chromecast in my case)
+
 1-5 to toggle TV as in scope for next operation
