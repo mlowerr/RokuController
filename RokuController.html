@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
+<meta charset="utf-8" />
 
 <head>
     <title>The Stronghold TV Wall Controller</title>
@@ -9,6 +10,7 @@
 
 <body>
 
+
     <P>
         <B>The Stronghold TV Wall Controller</B>
     </P>
@@ -17,26 +19,13 @@
 
     <P> Select the TV(s) to operate on:</P>
 
-    <TABLE>
-        <TR>
-            <TD>
-                <LABEL for="tv1"><input type="checkbox" name="tv" value="tv1" id="tv1"/>TV 1</LABEL>
-            </TD>
-            <TD>
-                <LABEL for="tv2"><input type="checkbox" name="tv" value="tv2" id="tv2"/>TV 2</LABEL>
-            </TD>
-            <TD>
-                <LABEL for="tv3"><input type="checkbox" name="tv" value="tv3" id="tv3"/>TV 3</LABEL>
-            </TD>
-            <TD>
-                <LABEL for="tv4"><input type="checkbox" name="tv" value="tv4" id="tv4"/>TV 4</LABEL>
-            </TD>
-            <TD>
-                <LABEL for="tv5"><input type="checkbox" name="tv" value="tv5" id="tv5"/>TV 5</LABEL>
-            </TD>
-        </TR>
-    </TABLE>
+    <LABEL for="tv1"><input type="checkbox" name="tv" value="tv1" id="tv1"/>TV 1</LABEL>
+    <LABEL for="tv2"><input type="checkbox" name="tv" value="tv2" id="tv2"/>TV 2</LABEL>
+    <LABEL for="tv3"><input type="checkbox" name="tv" value="tv3" id="tv3"/>TV 3</LABEL>
+    <LABEL for="tv4"><input type="checkbox" name="tv" value="tv4" id="tv4"/>TV 4</LABEL>
+    <LABEL for="tv5"><input type="checkbox" name="tv" value="tv5" id="tv5"/>TV 5</LABEL>
 
+    <br/>
     <button id="tvToggleBtn">Toggle all TV's</button>
 
     <br/><br/>
@@ -63,9 +52,20 @@
     <button id="leftBtn">Left</button>
     <button id="rightBtn">Right</button>
 
+    <br/><br/>
+
+    <button id="selectBtn">Select</button>
+    <button id="repeatBtn">Repeat</button>
+    <button id="infoBtn">Info (*)</button>
+
+    <br/><br/>
+    <button id="revBtn">Reverse</button>
+    <button id="playBtn">Play</button>
+    <button id="fwdBtn">Forward</button>
 
     <script>
         // Roku remote reference: https://developer.roku.com/docs/developer-program/debugging/external-control-api.md
+        // Roku dev tool that inspired this: http://devtools.web.roku.com/RokuRemote/
 
         const tvArray = {
             tv1: "http://192.168.86.40:8060",
@@ -75,11 +75,14 @@
             tv5: "http://192.168.86.42:8060"
         };
 
+        //List of TV's in scope for operation
+
+        const cbs = document.querySelectorAll('input[name="tv"]');
+
         //Functions associated with determining which TV's are in scope for operations
 
         const tvToggleBtn = document.querySelector('#tvToggleBtn');
         tvToggleBtn.onclick = checkAll;
-        const cbs = document.querySelectorAll('input[name="tv"]');
 
         function check(checked = true) {
             cbs.forEach((cb) => {
@@ -97,7 +100,8 @@
             this.onclick = checkAll;
         }
 
-        //Helper function to send the post request(s) for all operations
+        //Helper functions to send the post request(s) for all operations
+
         function postRequest(cb, operation) {
             fetch(tvArray[cb.id].concat("/keypress/").concat(operation), {
                     method: "POST"
@@ -107,120 +111,125 @@
                 })
         }
 
-        //Functions associated with TV power
-
-        //tv on
-        powerOnBtn.onclick = powerOn;
-
-        function powerOn() {
-            cbs.forEach((cb) => {
-                if (cb.checked) {
-                    postRequest(cb, "PowerOn");
-                }
-            })
-        }
-
-        //tv off
-        powerOffBtn.onclick = powerOff;
-
-        function powerOff() {
-            cbs.forEach((cb) => {
-                if (cb.checked) {
-                    postRequest(cb, "PowerOff");
-                }
-            })
-        }
-
-        //Functions associated with TV inputs
-
-        hdmi1Btn.onclick = setHDMI1Input;
-
-        function setHDMI1Input() {
-            cbs.forEach((cb) => {
-                if (cb.checked) {
-                    postRequest(cb, "InputHDMI1");
-                }
-            })
-        }
-
-        homeBtn.onclick = setHomeInput;
-
-        function setHomeInput() {
-            cbs.forEach((cb) => {
-                if (cb.checked) {
-                    postRequest(cb, "Home");
-                }
-            })
-        }
-        //Functions associated with TV volume
-
-        //volume up
-        volumeUpBtn.onclick = volUp;
-
-        function volUp() {
-            cbs.forEach((cb) => {
-                if (cb.checked) {
-                    postRequest(cb, "VolumeUp");
-                }
-            })
-        }
-
-        //volume down
-        volumeDownBtn.onclick = volDown;
-
-        function volDown() {
-            cbs.forEach((cb) => {
-                if (cb.checked) {
-                    postRequest(cb, "VolumeDown")
-                }
-            })
-        }
-
-        //volume muted
-        volumeMuteBtn.onclick = volMute;
-
-        function volMute() {
-            cbs.forEach((cb) => {
-                if (cb.checked) {
-                    postRequest(cb, "VolumeMute")
-                }
-            })
-        }
-
-        // Functions for controlling movement
-
-        backBtn.onclick = keyActionBack;
-        upBtn.onclick = keyActionUp;
-        downBtn.onclick = keyActionDown;
-        leftBtn.onclick = keyActionLeft;
-        rightBtn.onclick = keyActionRight;
-
-        function keyActionBack() {
-            keyAction("Back");
-        }
-
-        function keyActionUp() {
-            keyAction("Up");
-        }
-
-        function keyActionDown() {
-            keyAction("Down");
-        }
-
-        function keyActionLeft() {
-            keyAction("Left");
-        }
-
-        function keyActionRight() {
-            keyAction("Right");
-        }
-
         function keyAction(reqAction) {
             cbs.forEach((cb) => {
                 if (cb.checked) {
                     postRequest(cb, reqAction);
                 }
             })
+        }
+
+        //Remote actions
+
+        //PowerOn works, but it appears that if the TV's have been off for more than an hour they go into a deep sleep and will not
+        //respond to this command.  The physical remote is needed to first turn the tv on.  This does work to turn a TV on that you
+        //accidentilly turned them off.
+
+        powerOnBtn.onclick = powerOn;
+
+        function powerOn() {
+            keyAction("PowerOn");
+        }
+
+        powerOffBtn.onclick = powerOff;
+
+        function powerOff() {
+            keyAction("PowerOff");
+        }
+
+        hdmi1Btn.onclick = setHDMI1Input;
+
+        function setHDMI1Input() {
+            keyAction("InputHDMI1");
+        }
+
+        homeBtn.onclick = setHomeInput;
+
+        function setHomeInput() {
+            keyAction("Home");
+        }
+        volumeUpBtn.onclick = volUp;
+
+        function volUp() {
+            keyAction("VolumeUp");
+        }
+
+        volumeDownBtn.onclick = volDown;
+
+        function volDown() {
+            keyAction("VolumeDown");
+        }
+
+        volumeMuteBtn.onclick = volMute;
+
+        function volMute() {
+            keyAction("VolumeMute");
+        }
+
+        backBtn.onclick = keyActionBack;
+
+        function keyActionBack() {
+            keyAction("Back");
+        }
+
+        upBtn.onclick = keyActionUp;
+
+        function keyActionUp() {
+            keyAction("Up");
+        }
+
+        downBtn.onclick = keyActionDown;
+
+        function keyActionDown() {
+            keyAction("Down");
+        }
+
+        leftBtn.onclick = keyActionLeft;
+
+        function keyActionLeft() {
+            keyAction("Left");
+        }
+
+        rightBtn.onclick = keyActionRight;
+
+        function keyActionRight() {
+            keyAction("Right");
+        }
+
+        selectBtn.onclick = keyActionSelect;
+
+        function keyActionSelect() {
+            keyAction("Select");
+        }
+
+        repeatBtn.onclick = keyActionRepeat;
+
+        function keyActionRepeat() {
+            keyAction("Repeat");
+        }
+
+        infoBtn.onclick = keyActionInfo;
+
+        function keyActionInfo() {
+            keyAction("Info");
+        }
+
+        revBtn.onclick = keyActionReverse;
+
+        function keyActionReverse() {
+            keyAction("Rev");
+        }
+
+        playBtn.onclick = keyActionPlay;
+
+        function keyActionPlay() {
+            keyAction("Play");
+        }
+
+        fwdBtn.onclick = keyActionForward;
+
+        function keyActionForward() {
+            keyAction("Fwd");
         }
     </script>
 
