@@ -41,6 +41,7 @@
         <button id="volumeUpBtn">Volume Up</button>
         <button id="volumeDownBtn">Volume Down</button>
         <button id="volumeMuteBtn">Mute</button>
+        <LABEL for="volIncrement">Inc: <input type="number" name="volIncrement" value="1" min="0" size="3" id="volIncrement" width="20em"/></LABEL>
     </P>
 
     <P>Nav:
@@ -75,7 +76,7 @@
 
         //List of TV's in scope for operation
 
-        cbs = document.querySelectorAll('input[name="tv"]');
+        const cbs = document.querySelectorAll('input[name="tv"]');
 
         //Functions associated with determining which TV's are in scope for operations
 
@@ -144,13 +145,25 @@
         volumeUpBtn.onclick = volUp;
 
         function volUp() {
-            keyAction("VolumeUp");
+            volLoop("VolumeUp");
         }
 
         volumeDownBtn.onclick = volDown;
 
         function volDown() {
-            keyAction("VolumeDown");
+            volLoop("VolumeDown");
+        }
+
+        //This does not work with 100% accuracy.  There is a time between commands that the 
+        //TVs apparently need (no queing?), but it does help in quickly incrasing or decreasing 
+        //the volume.
+        function volLoop(reqAction) {
+            increment = document.querySelector('input[name="volIncrement"]').value;
+            for (x = 0; x < increment; x++) {
+                setTimeout(() => {
+                    keyAction(reqAction);
+                }, 500)
+            }
         }
 
         volumeMuteBtn.onclick = volMute;
@@ -265,8 +278,11 @@
                 case "Digit5":
                     idx = event.code.substr(5) - 1;
                     cbs[idx].click();
+                    break;
             }
         })
+
     </script>
+
 
 </html>
