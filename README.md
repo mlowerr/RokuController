@@ -5,7 +5,9 @@ Everything is working except for 'power on' which has issues if the TV's have be
 
 Future potential improvements:
 - Add support for the /launch (/Launch on my systems) API to direclty load channels.  Need to determine how to get each apps APP_ID.
-~~ - Add support to change volume by an arbitrary # of levels ~~ (Done)
+
+
+- ~~Add support to change volume by an arbitrary # of levels~~ (Done)
 
 Keyboard shortcuts supported:
 ============================================
