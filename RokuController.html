@@ -75,11 +75,11 @@
 
         //List of TV's in scope for operation
 
-        const cbs = document.querySelectorAll('input[name="tv"]');
+        cbs = document.querySelectorAll('input[name="tv"]');
 
         //Functions associated with determining which TV's are in scope for operations
 
-        const tvToggleBtn = document.querySelector('#tvToggleBtn');
+        tvToggleBtn = document.querySelector('#tvToggleBtn');
         tvToggleBtn.onclick = checkAll;
 
         function check(checked = true) {
@@ -224,6 +224,49 @@
         function keyActionForward() {
             keyAction("Fwd");
         }
+
+        //Keyboard shortcuts
+        addEventListener('keyup', (event) => {
+            switch (event.code) {
+                case "ArrowDown":
+                    keyActionDown();
+                    break;
+                case "ArrowUp":
+                    keyActionUp();
+                    break;
+                case "ArrowLeft":
+                    keyActionLeft();
+                    break;
+                case "ArrowRight":
+                    keyActionRight();
+                    break;
+                case "Enter":
+                    keyActionSelect();
+                    break;
+                case "KeyM":
+                    volMute();
+                    break;
+                case "KeyJ":
+                    volUp();
+                    break;
+                case "KeyK":
+                    volDown();
+                    break;
+                case "KeyH":
+                    setHomeInput();
+                    break;
+                case "KeyC":
+                    setHDMI1Input();
+                    break;
+                case "Digit1":
+                case "Digit2":
+                case "Digit3":
+                case "Digit4":
+                case "Digit5":
+                    idx = event.code.substr(5) - 1;
+                    cbs[idx].click();
+            }
+        })
     </script>
 
 </html>
