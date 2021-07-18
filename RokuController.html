@@ -10,12 +10,15 @@
 
 <body>
 
-
     <P>
         <B>The Stronghold TV Wall Controller</B>
     </P>
 
     <hr/>
+    <P>Power: &nbsp; &nbsp;
+        <button id="powerOnBtn">TV On</button> &nbsp;
+        <button id="powerOffBtn">TV Off</button>
+    </P>
 
     <P> Select the TV(s) to operate on:</P>
 
@@ -24,44 +27,39 @@
     <LABEL for="tv3"><input type="checkbox" name="tv" value="tv3" id="tv3"/>TV 3</LABEL>
     <LABEL for="tv4"><input type="checkbox" name="tv" value="tv4" id="tv4"/>TV 4</LABEL>
     <LABEL for="tv5"><input type="checkbox" name="tv" value="tv5" id="tv5"/>TV 5</LABEL>
-
     <br/>
     <button id="tvToggleBtn">Toggle all TV's</button>
 
-    <br/><br/>
+    <br/>
 
-    <button id="powerOnBtn">TV On</button>
-    <button id="powerOffBtn">TV Off</button>
+    <P>Inp:
+        <button id="hdmi1Btn">Chromecast Input</button>
+        <button id="homeBtn">Home Screen</button>
+    </P>
 
-    <br/><br/>
+    <P>Vol:
+        <button id="volumeUpBtn">Volume Up</button>
+        <button id="volumeDownBtn">Volume Down</button>
+        <button id="volumeMuteBtn">Mute</button>
+    </P>
 
-    <button id="hdmi1Btn">Chromecast Input</button>
-    <button id="homeBtn">Home Screen</button>
+    <P>Nav:
+        <button id="upBtn">🡩</button>
+        <button id="downBtn">🡫</button>
+        <button id="leftBtn">🡨</button>
+        <button id="rightBtn">🡪</button>
+    </P>
 
-    <br/><br/>
-
-    <button id="volumeUpBtn">Volume Up</button>
-    <button id="volumeDownBtn">Volume Down</button>
-    <button id="volumeMuteBtn">Mute</button>
-
-    <br/><br/>
-
-    <button id="backBtn">Back</button>
-    <button id="upBtn">Up</button>
-    <button id="downBtn">Down</button>
-    <button id="leftBtn">Left</button>
-    <button id="rightBtn">Right</button>
-
-    <br/><br/>
-
-    <button id="selectBtn">Select</button>
+    <button id="backBtn">Nav Bk</button>
+    <button id="selectBtn">OK</button>
     <button id="repeatBtn">Repeat</button>
     <button id="infoBtn">Info (*)</button>
 
     <br/><br/>
-    <button id="revBtn">Reverse</button>
+
+    <button id="revBtn">RR</button>
     <button id="playBtn">Play</button>
-    <button id="fwdBtn">Forward</button>
+    <button id="fwdBtn">FF</button>
 
     <script>
         // Roku remote reference: https://developer.roku.com/docs/developer-program/debugging/external-control-api.md
