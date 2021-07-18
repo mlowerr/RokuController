@@ -61,6 +61,8 @@
     <button id="playBtn">Play</button>
     <button id="fwdBtn">FF</button>
 
+    <button id="youTubeTVBtn">YouTubeTV</button>
+
     <script>
         // Roku remote reference: https://developer.roku.com/docs/developer-program/debugging/external-control-api.md
         // Roku dev tool that inspired this: http://devtools.web.roku.com/RokuRemote/
@@ -101,12 +103,7 @@
         //Helper functions to send the post request(s) for all operations
 
         function postRequest(cb, operation) {
-            fetch(tvArray[cb.id].concat("/keypress/").concat(operation), {
-                    method: "POST"
-                })
-                .then(res => {
-                    console.log("done")
-                })
+            $.post(tvArray[cb.id].concat("/keypress/").concat(operation));
         }
 
         function keyAction(reqAction) {
