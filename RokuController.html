@@ -1,4 +1,4 @@
-
+<!DOCTYPE html
 <html lang="en-US">
 <meta charset="utf-8" />
 
@@ -15,9 +15,10 @@
     </P>
 
     <hr/>
+
     <P>Power: &nbsp; &nbsp;
-        <button id="powerOnBtn">TV On</button> &nbsp;
-        <button id="powerOffBtn">TV Off</button>
+        <button id="powerOnBtn" onclick="powerOn()">TV On</button> &nbsp;
+        <button id="powerOffBtn" onclick="powerOff()" >TV Off</button>
     </P>
 
     <P> Select the TV(s) to operate on:</P>
@@ -28,39 +29,39 @@
     <LABEL for="tv4"><input type="checkbox" name="tv" value="tv4" id="tv4"/>TV 4</LABEL>
     <LABEL for="tv5"><input type="checkbox" name="tv" value="tv5" id="tv5"/>TV 5</LABEL>
     <br/>
-    <button id="tvToggleBtn">Toggle all TV's</button>
+    <button id="tvToggleBtn" onclick="checkAll()">Toggle all TV's</button>
 
     <br/>
 
     <P>Inp:
-        <button id="hdmi1Btn">Chromecast Input</button>
-        <button id="homeBtn">Home Screen</button>
+        <button id="hdmi1Btn" onclick="setHDMI1Input()">Chromecast Input</button>
+        <button id="homeBtn" onclick="setHomeInput()">Home Screen</button>
     </P>
 
     <P>Vol:
-        <button id="volumeUpBtn">Volume Up</button>
-        <button id="volumeDownBtn">Volume Down</button>
-        <button id="volumeMuteBtn">Mute</button>
-        <LABEL for="volIncrement">Inc: <input type="number" name="volIncrement" value="1" min="0" size="3" id="volIncrement"/></LABEL>
+        <button id="volumeUpBtn" onclick="volUp()">Volume Up</button>
+        <button id="volumeDownBtn" onclick="volDown()">Volume Down</button>
+        <button id="volumeMuteBtn" onclick="volMute()">Mute</button>
+        <LABEL for="volIncrement">Inc: <input type="number" name="volIncrement" value="1" min="0" max="20" size="3" id="volIncrement"/></LABEL>
     </P>
 
     <P>Nav:
-        <button id="upBtn">🡩</button>
-        <button id="downBtn">🡫</button>
-        <button id="leftBtn">🡨</button>
-        <button id="rightBtn">🡪</button>
+        <button id="upBtn" onclick="keyActionUp()">🡩</button>
+        <button id="downBtn" onclick="keyActionDown()">🡫</button>
+        <button id="leftBtn" onclick="keyActionLeft()">🡨</button>
+        <button id="rightBtn" onclick="keyActionRight()">🡪</button>
     </P>
 
-    <button id="backBtn">Nav Bk</button>
-    <button id="selectBtn">OK</button>
-    <button id="repeatBtn">Repeat</button>
-    <button id="infoBtn">Info (*)</button>
+    <button id="backBtn" onclick="keyActionBack()">Nav Bk</button>
+    <button id="selectBtn" onclick="keyActionSelect()">OK</button>
+    <button id="repeatBtn" onclick="keyActionRepeat()">Repeat</button>
+    <button id="infoBtn" onclick="keyActionInfo()">Info (*)</button>
 
     <br/><br/>
 
-    <button id="revBtn">RR</button>
-    <button id="playBtn">Play</button>
-    <button id="fwdBtn">FF</button>
+    <button id="revBtn" onclick="keyActionReverse()">RR</button>
+    <button id="playBtn" onclick="keyActionPlay()">Play</button>
+    <button id="fwdBtn" onclick="keyActionForward()">FF</button>
 
     <script type="text/javascript"  src="./RokuController.js"></script>
 
