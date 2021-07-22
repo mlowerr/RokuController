@@ -28,10 +28,11 @@
     <LABEL for="tv3"><input type="checkbox" name="tv" value="tv3" id="tv3"/>TV 3</LABEL>
     <LABEL for="tv4"><input type="checkbox" name="tv" value="tv4" id="tv4"/>TV 4</LABEL>
     <LABEL for="tv5"><input type="checkbox" name="tv" value="tv5" id="tv5"/>TV 5</LABEL>
-    <br/>
-    <button id="tvToggleBtn" onclick="checkAll()">Toggle all TV's</button>
-
-    <br/>
+    
+    <P>Sel: 
+        <button id="tvToggleBtn" onclick="checkAll()">Toggle all</button>
+        <button id="tvInvertBtn" onclick="invertAll()">Invert </button>
+    </P>
 
     <P>Inp:
         <button id="hdmi1Btn" onclick="setHDMI1Input()">Chromecast Input</button>

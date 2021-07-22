@@ -15,6 +15,9 @@ const cbs = document.querySelectorAll('input[name="tv"]');
 
 // Functions associated with determining which TV's are in scope for operations
 
+// This is needed in the javascript file to allow checkAll() and uncheckAll()'s this.onclick to work.
+tvToggleBtn.onclick = checkAll;
+
 function check(checked = true) {
   cbs.forEach((cb) => {
     cb.checked = checked;
@@ -23,12 +26,18 @@ function check(checked = true) {
 
 function checkAll() {
   check();
-  this.onclick = uncheckAll();
+  this.onclick = uncheckAll;
 }
 
 function uncheckAll() {
   check(false);
-  this.onclick = checkAll();
+  this.onclick = checkAll;
+}
+
+function invertAll() {
+  cbs.forEach((cb) => {
+    cb.checked = !cb.checked;
+  });
 }
 
 // Helper functions to send the post request(s) for all operations
