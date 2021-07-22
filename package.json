@@ -8,9 +8,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
-  "author": "",
+  "author": "Matthew E Lowerr",
   "license": "ISC",
   "dependencies": {
-    "eslint-config-wesbos": "^1.0.1"
+    "eslint-config-wesbos": "^1.0.1",
+    "prettier": "^2.3.2"
   }
 }

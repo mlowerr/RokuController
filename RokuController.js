@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 // Roku remote reference: https://developer.roku.com/docs/developer-program/debugging/external-control-api.md
 // Roku dev tool that inspired this: http://devtools.web.roku.com/RokuRemote/
 
