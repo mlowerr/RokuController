@@ -90,7 +90,7 @@ function setHomeInput() {
 // This does not work with 100% accuracy.  There is a time between commands that the
 // TVs apparently need (no queing?), but it does help in quickly incrasing or decreasing
 // the volume.
-function volLoop(reqAction) {
+function volLoop(apiPath, reqAction) {
   let increment = document.querySelector('input[name="volIncrement"]').value;
 
   // Guard against negative values and values greater than 20
@@ -102,7 +102,7 @@ function volLoop(reqAction) {
 
   for (let x = 0; x < increment; x += 1) {
     setTimeout(() => {
-      keyAction(KEYPRESS_API_PATH, reqAction);
+      keyAction(apiPath, reqAction);
     }, 500);
   }
 }
