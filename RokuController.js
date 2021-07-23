@@ -1,7 +1,12 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+
 // Roku remote reference: https://developer.roku.com/docs/developer-program/debugging/external-control-api.md
 // Roku dev tool that inspired this: http://devtools.web.roku.com/RokuRemote/
+
+const KEYPRESS_API_PATH = '/keypress/';
+const LAUCNH_API_PATH = '/launch/';
 
 const tvArray = {
   tv1: 'http://192.168.86.40:8060',
@@ -9,6 +14,10 @@ const tvArray = {
   tv3: 'http://192.168.86.41:8060',
   tv4: 'http://192.168.86.29:8060',
   tv5: 'http://192.168.86.42:8060',
+};
+
+const channelArray = {
+  YouTubeTV: 195316,
 };
 
 // List of TV's in scope for operation
@@ -44,14 +53,14 @@ function invertAll() {
 
 // Helper functions to send the post request(s) for all operations
 
-function postRequest(cb, operation) {
-  $.post(tvArray[cb.id].concat('/keypress/').concat(operation));
+function postRequest(cb, apiPath, operation) {
+  $.post(tvArray[cb.id].concat(apiPath).concat(operation));
 }
 
-function keyAction(reqAction) {
+function keyAction(apiPath, reqAction) {
   cbs.forEach((cb) => {
     if (cb.checked) {
-      postRequest(cb, reqAction);
+      postRequest(cb, apiPath, reqAction);
     }
   });
 }
@@ -63,19 +72,19 @@ function keyAction(reqAction) {
 // accidentilly turned them off.
 
 function powerOn() {
-  keyAction('PowerOn');
+  keyAction(KEYPRESS_API_PATH, 'PowerOn');
 }
 
 function powerOff() {
-  keyAction('PowerOff');
+  keyAction(KEYPRESS_API_PATH, 'PowerOff');
 }
 
 function setHDMI1Input() {
-  keyAction('InputHDMI1');
+  keyAction(KEYPRESS_API_PATH, 'InputHDMI1');
 }
 
 function setHomeInput() {
-  keyAction('Home');
+  keyAction(KEYPRESS_API_PATH, 'Home');
 }
 
 // This does not work with 100% accuracy.  There is a time between commands that the
@@ -93,65 +102,70 @@ function volLoop(reqAction) {
 
   for (let x = 0; x < increment; x += 1) {
     setTimeout(() => {
-      keyAction(reqAction);
+      keyAction(KEYPRESS_API_PATH, reqAction);
     }, 500);
   }
 }
 
 function volUp() {
-  volLoop('VolumeUp');
+  volLoop(KEYPRESS_API_PATH, 'VolumeUp');
 }
 
 function volDown() {
-  volLoop('VolumeDown');
+  volLoop(KEYPRESS_API_PATH, 'VolumeDown');
 }
 
 function volMute() {
-  keyAction('VolumeMute');
+  keyAction(KEYPRESS_API_PATH, 'VolumeMute');
 }
 
 function keyActionBack() {
-  keyAction('Back');
+  keyAction(KEYPRESS_API_PATH, 'Back');
 }
 
 function keyActionUp() {
-  keyAction('Up');
+  keyAction(KEYPRESS_API_PATH, 'Up');
 }
 
 function keyActionDown() {
-  keyAction('Down');
+  keyAction(KEYPRESS_API_PATH, 'Down');
 }
 
 function keyActionLeft() {
-  keyAction('Left');
+  keyAction(KEYPRESS_API_PATH, 'Left');
 }
 
 function keyActionRight() {
-  keyAction('Right');
+  keyAction(KEYPRESS_API_PATH, 'Right');
 }
 
 function keyActionSelect() {
-  keyAction('Select');
+  keyAction(KEYPRESS_API_PATH, 'Select');
 }
 
 function keyActionRepeat() {
-  keyAction('Repeat');
+  keyAction(KEYPRESS_API_PATH, 'Repeat');
 }
 
 function keyActionInfo() {
-  keyAction('Info');
+  keyAction(KEYPRESS_API_PATH, 'Info');
 }
 
 function keyActionReverse() {
-  keyAction('Rev');
+  keyAction(KEYPRESS_API_PATH, 'Rev');
 }
 
 function keyActionPlay() {
-  keyAction('Play');
+  keyAction(KEYPRESS_API_PATH, 'Play');
 }
 
 function keyActionForward() {
-  keyAction('Fwd');
+  keyAction(KEYPRESS_API_PATH, 'Fwd');
+}
+
+function openChannel(channel) {
+  // keyAction(LAUCNH_API_PATH, channelArray.YouTubeTV);
+  keyAction(LAUCNH_API_PATH, channel);
 }
 
 // Keyboard shortcuts
@@ -204,6 +218,10 @@ addEventListener('keyup', (event) => {
     case 'Digit5': {
       const idx = event.code.substr(5) - 1;
       cbs[idx].click();
+      break;
+    }
+    case 'KeyY': {
+      openChannel(channelArray.YouTubeTV);
       break;
     }
     default: {

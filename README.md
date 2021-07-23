@@ -1,29 +1,14 @@
 # RokuController
 
-Quick and dirty controller for multiple Roku TV based TV's. Inspired by the Roku developer reference app which didn't quite do what I wanted it to do. Hacked up in an afternoon and known to be working for my use cases.
+This project started out as a "quick and dirty" controller in an attempt to avoid purchasing a "smart remote" or otherwise solving for the challenge of being able to change the inputs, channel, volume, etc. for a collection of multiple television sets that all respond to the same remote.
 
-Everything is working except for 'power on' which has issues if the TV's have been off for some time (1 hr or so?). I believe this is due to the TV's going into a deep sleep and no longer listening over HTTP? In this case, the physical remote is needed to initially power on the TV's.
+The project is inspired by the [Roku Remote Tool](http://devtools.web.roku.com/RokuRemote/) application which supported most of the remote control functionality but required more back and fourth between modals than I wanted.
 
-Future potential improvements:
+Everything is known to work in this project except for the following:
 
-- Add support for the /launch (/Launch on my systems) API to direclty load channels. Need to determine how to get each apps APP_ID.
+- For my setup, the 'power on' functionality only works if the TV's were last powered off in the last 30 to 60 minutes. I believe my TV's go into a deep sleep and stop responding to the API when this happens.
+- Volume adjustment by increment is not exact. The TV's to not appear to store a queue of incoming requests and the lag time needed between commands appears to be variable. Currently set to include a delay between commands that seems to work best for my setup. Still helpful in more quickly increases or decreasing volume.
 
-- ~~Add support to change volume by an arbitrary # of levels~~ (Done)
+Future potential improvements I would like to make:
 
-# Keyboard shortcuts supported:
-
-Up/Down/Left/Right arrows for navigation
-
-Enter for select
-
-M to mute
-
-J to incrase volume
-
-K to decrease volume
-
-H to switch input to home
-
-C to switch input to HDMI 1 (Chromecast in my case)
-
-1-5 to toggle TV as in scope for next operation
+- Add support for the /launch API (/Launch on my systems) API to directly load channels. To do this I need to find out how to get each apps APP_ID field.
