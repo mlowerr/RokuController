@@ -10,7 +10,7 @@
     ></script>
   </head>
 
-  <body onload="insertListOfTVs()">
+  <body onload="insertListOfTVs(); insertListOfRokuChannels()">
     <p>
       <b>The Stronghold TV Wall Controller</b>
     </p>
@@ -39,8 +39,15 @@
       Inp:
       <button id="hdmi1Btn" onclick="setHDMI1Input()">Chromecast Input</button>
       <button id="homeBtn" onclick="setHomeInput()">Home Screen</button>
-      <button id="youTubeTVBtn" onclick="openChannel(channelEnum.YouTubeTV)">
-        YouTube TV
+      <label for="channelSelection">Channel:</label>
+      <select id="channel" name="channel">
+        <!-- Options are populated via insertListOfRokuChannels() -->
+      </select>
+      <button
+        id="openChannelBtn"
+        onclick="openChannel(document.getElementById('channel').value)"
+      >
+        Open Channel
       </button>
     </p>
 
