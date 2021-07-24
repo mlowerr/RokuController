@@ -5,10 +5,7 @@
 // Roku remote reference: https://developer.roku.com/docs/developer-program/debugging/external-control-api.md
 // Roku dev tool that inspired this: http://devtools.web.roku.com/RokuRemote/
 
-const KEYPRESS_API_PATH = '/keypress/';
-const LAUCNH_API_PATH = '/launch/';
-
-const tvArray = {
+const tvEnum = {
   tv1: 'http://192.168.86.40:8060',
   tv2: 'http://192.168.86.43:8060',
   tv3: 'http://192.168.86.41:8060',
@@ -16,13 +13,27 @@ const tvArray = {
   tv5: 'http://192.168.86.42:8060',
 };
 
-const channelArray = {
+const apiPathEnum = {
+  KEYPRESS_API_PATH: '/keypress/',
+  LAUCNH_API_PATH: '/launch/',
+};
+
+const channelEnum = {
   YouTubeTV: 195316,
 };
 
+/*
+function bla() {
+  // this one works...
+  $.each(tvEnum, function (key, value) {
+    console.log('key: ', key, ' value: ', value);
+  });
+}
+*/
+
 // List of TV's in scope for operation
 
-const cbs = document.querySelectorAll('input[name="tv"]');
+const tvCheckBoxes = document.querySelectorAll('input[name="tv"]');
 
 // Functions associated with determining which TV's are in scope for operations
 
@@ -30,7 +41,7 @@ const cbs = document.querySelectorAll('input[name="tv"]');
 tvToggleBtn.onclick = checkAll;
 
 function check(checked = true) {
-  cbs.forEach((cb) => {
+  tvCheckBoxes.forEach((cb) => {
     cb.checked = checked;
   });
 }
@@ -46,7 +57,7 @@ function uncheckAll() {
 }
 
 function invertAll() {
-  cbs.forEach((cb) => {
+  tvCheckBoxes.forEach((cb) => {
     cb.checked = !cb.checked;
   });
 }
@@ -54,11 +65,11 @@ function invertAll() {
 // Helper functions to send the post request(s) for all operations
 
 function postRequest(cb, apiPath, operation) {
-  $.post(tvArray[cb.id].concat(apiPath).concat(operation));
+  $.post(tvEnum[cb.id].concat(apiPath).concat(operation));
 }
 
 function keyAction(apiPath, reqAction) {
-  cbs.forEach((cb) => {
+  tvCheckBoxes.forEach((cb) => {
     if (cb.checked) {
       postRequest(cb, apiPath, reqAction);
     }
@@ -72,35 +83,37 @@ function keyAction(apiPath, reqAction) {
 // accidentilly turned them off.
 
 function powerOn() {
-  keyAction(KEYPRESS_API_PATH, 'PowerOn');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'PowerOn');
 }
 
 function powerOff() {
-  keyAction(KEYPRESS_API_PATH, 'PowerOff');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'PowerOff');
 }
 
 function setHDMI1Input() {
-  keyAction(KEYPRESS_API_PATH, 'InputHDMI1');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'InputHDMI1');
 }
 
 function setHomeInput() {
-  keyAction(KEYPRESS_API_PATH, 'Home');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Home');
 }
 
 // This does not work with 100% accuracy.  There is a time between commands that the
 // TVs apparently need (no queing?), but it does help in quickly incrasing or decreasing
 // the volume.
 function volLoop(apiPath, reqAction) {
-  let increment = document.querySelector('input[name="volIncrement"]').value;
+  let volumeIncrement = document.querySelector(
+    'input[name="volIncrement"]'
+  ).value;
 
   // Guard against negative values and values greater than 20
-  if (increment < 0) {
-    increment = 1;
-  } else if (increment > 20) {
-    increment = 20;
+  if (volumeIncrement < 0) {
+    volumeIncrement = 1;
+  } else if (volumeIncrement > 20) {
+    volumeIncrement = 20;
   }
 
-  for (let x = 0; x < increment; x += 1) {
+  for (let x = 0; x < volumeIncrement; x += 1) {
     setTimeout(() => {
       keyAction(apiPath, reqAction);
     }, 500);
@@ -108,64 +121,64 @@ function volLoop(apiPath, reqAction) {
 }
 
 function volUp() {
-  volLoop(KEYPRESS_API_PATH, 'VolumeUp');
+  volLoop(apiPathEnum.KEYPRESS_API_PATH, 'VolumeUp');
 }
 
 function volDown() {
-  volLoop(KEYPRESS_API_PATH, 'VolumeDown');
+  volLoop(apiPathEnum.KEYPRESS_API_PATH, 'VolumeDown');
 }
 
 function volMute() {
-  keyAction(KEYPRESS_API_PATH, 'VolumeMute');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'VolumeMute');
 }
 
 function keyActionBack() {
-  keyAction(KEYPRESS_API_PATH, 'Back');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Back');
 }
 
 function keyActionUp() {
-  keyAction(KEYPRESS_API_PATH, 'Up');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Up');
 }
 
 function keyActionDown() {
-  keyAction(KEYPRESS_API_PATH, 'Down');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Down');
 }
 
 function keyActionLeft() {
-  keyAction(KEYPRESS_API_PATH, 'Left');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Left');
 }
 
 function keyActionRight() {
-  keyAction(KEYPRESS_API_PATH, 'Right');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Right');
 }
 
 function keyActionSelect() {
-  keyAction(KEYPRESS_API_PATH, 'Select');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Select');
 }
 
 function keyActionRepeat() {
-  keyAction(KEYPRESS_API_PATH, 'Repeat');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Repeat');
 }
 
 function keyActionInfo() {
-  keyAction(KEYPRESS_API_PATH, 'Info');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Info');
 }
 
 function keyActionReverse() {
-  keyAction(KEYPRESS_API_PATH, 'Rev');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Rev');
 }
 
 function keyActionPlay() {
-  keyAction(KEYPRESS_API_PATH, 'Play');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Play');
 }
 
 function keyActionForward() {
-  keyAction(KEYPRESS_API_PATH, 'Fwd');
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Fwd');
 }
 
 function openChannel(channel) {
-  // keyAction(LAUCNH_API_PATH, channelArray.YouTubeTV);
-  keyAction(LAUCNH_API_PATH, channel);
+  // keyAction(LAUCNH_API_PATH, channelEnum.YouTubeTV);
+  keyAction(apiPathEnum.LAUCNH_API_PATH, channel);
 }
 
 // Keyboard shortcuts
@@ -217,11 +230,11 @@ addEventListener('keyup', (event) => {
     case 'Digit4':
     case 'Digit5': {
       const idx = event.code.substr(5) - 1;
-      cbs[idx].click();
+      tvCheckBoxes[idx].click();
       break;
     }
     case 'KeyY': {
-      openChannel(channelArray.YouTubeTV);
+      openChannel(channelEnum.YouTubeTV);
       break;
     }
     default: {
