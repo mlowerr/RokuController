@@ -1,126 +1,16 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+/* eslint-disable no-use-before-define */
 
 // Roku remote reference: https://developer.roku.com/docs/developer-program/debugging/external-control-api.md
 // Roku dev tool that inspired this: http://devtools.web.roku.com/RokuRemote/
-
-const tvEnum = {
-  tv1: 'http://192.168.86.40:8060',
-  tv2: 'http://192.168.86.43:8060',
-  tv3: 'http://192.168.86.41:8060',
-  tv4: 'http://192.168.86.29:8060',
-  tv5: 'http://192.168.86.42:8060',
-};
 
 const apiPathEnum = {
   KEYPRESS_API_PATH: '/keypress/',
   LAUCNH_API_PATH: '/launch/',
 };
 
-const channelEnum = {
-  /* eslint-disable prettier/prettier */
- 
-  ABC:              { ChannelID: 73376,  DisplayName: 'ABC',              Selected: false },
-  AmazonPrimeVideo: { ChannelID: 13,     DisplayName: 'AmazonPrimeVideo', Selected: false },
-  CBSSports:        { ChannelID: 17112,  DisplayName: 'CBS Sports',       Selected: false },
-  CNBC:             { ChannelID: 9160,   DisplayName: 'CNBC',             Selected: false },
-  ESPN:             { ChannelID: 34376,  DisplayName: 'ESPN',             Selected: false },
-  FOXBusiness:      { ChannelID: 18746,  DisplayName: 'FOX Business',     Selected: false },
-  FOXNews:          { ChannelID: 2946,   DisplayName: 'FOX News',         Selected: false },
-  FOXNow:           { ChannelID: 20454,  DisplayName: 'FOX Now',          Selected: false },
-  FOXSports:        { ChannelID: 95307,  DisplayName: 'FOX Sports',       Selected: false },
-  NBA:              { ChannelID: 73249,  DisplayName: 'NBA',              Selected: false },
-  NBC:              { ChannelID: 68669,  DisplayName: 'NBC',              Selected: false },
-  NBCPeacock:       { ChannelID: 593099, DisplayName: 'NBC Peacock',      Selected: false },
-  NBCSports:        { ChannelID: 53725,  DisplayName: 'NBC Sports',       Selected: false },
-  NFL:              { ChannelID: 44856,  DisplayName: 'NFL',              Selected: false },
-  Netflix:          { ChannelID: 12,     DisplayName: 'NetFlix',          Selected: false },
-  YouTubeTV:        { ChannelID: 195316, DisplayName: 'YouTube TV',       Selected: true },
- 
-  /* eslint-enable prettier/prettier */
-};
-
-// Dynamically build checkboxes for TV's to be controlled.
-function insertListOfTVs() {
-  const tvListDiv = document.querySelector('div[id="tvSelectionDiv"]');
-
-  labelIncrement = 1;
-  for (const [key, value] of Object.entries(tvEnum)) {
-    // Create the label element
-    entryLabel = document.createElement('label');
-    entryLabel.setAttribute('for', key);
-
-    // crate the input entry element
-    entryInput = document.createElement('input');
-    entryInput.type = 'checkbox';
-    entryInput.name = 'tv';
-    entryInput.value = key;
-    entryInput.id = key;
-
-    // Add the input entry element to the label element
-    entryLabel.append(entryInput);
-    // Append label text
-    entryLabel.innerHTML = entryLabel.innerHTML.concat(`TV ${labelIncrement} `);
-
-    // Add the label to the div
-    tvListDiv.insertAdjacentElement('beforeend', entryLabel);
-    labelIncrement += 1;
-  }
-  updateTvCheckBoxes();
-}
-
-// Dynamically build list of Roku chanels that can be launched
-function insertListOfRokuChannels() {
-  const channelSelectionElement = document.querySelector(
-    'select[name="channel"]'
-  );
-
-  for (const [key, value] of Object.entries(channelEnum)) {
-    // Create the option element
-    optionElement = document.createElement('option');
-    optionElement.setAttribute('value', key);
-    optionElement.setAttribute('selected', value.Selected);
-    optionElement.innerText = value.DisplayName;
-
-    // Add the option to the select element
-    channelSelectionElement.insertAdjacentElement('beforeend', optionElement);
-  }
-}
-
-// List of TV's in scope for operation
-
-let tvCheckBoxes = document.querySelectorAll('input[name="tv"]');
-function updateTvCheckBoxes() {
-  tvCheckBoxes = document.querySelectorAll('input[name="tv"]');
-}
-
 // Functions associated with determining which TV's are in scope for operations
-
-// This is needed in the javascript file to allow checkAll() and uncheckAll()'s this.onclick to work.
-tvToggleBtn.onclick = checkAll;
-
-function check(checked = true) {
-  tvCheckBoxes.forEach((cb) => {
-    cb.checked = checked;
-  });
-}
-
-function checkAll() {
-  check();
-  this.onclick = uncheckAll;
-}
-
-function uncheckAll() {
-  check(false);
-  this.onclick = checkAll;
-}
-
-function invertAll() {
-  tvCheckBoxes.forEach((cb) => {
-    cb.checked = !cb.checked;
-  });
-}
 
 // Helper functions to send the post request(s) for all operations
 
