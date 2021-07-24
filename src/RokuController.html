@@ -10,7 +10,7 @@
     ></script>
   </head>
 
-  <body>
+  <body onload="insertListOfTVs()">
     <p>
       <b>The Stronghold TV Wall Controller</b>
     </p>
@@ -25,21 +25,9 @@
 
     <p>Select the TV(s) to operate on:</p>
 
-    <label for="tv1"
-      ><input type="checkbox" name="tv" value="tv1" id="tv1" />TV 1</label
-    >
-    <label for="tv2"
-      ><input type="checkbox" name="tv" value="tv2" id="tv2" />TV 2</label
-    >
-    <label for="tv3"
-      ><input type="checkbox" name="tv" value="tv3" id="tv3" />TV 3</label
-    >
-    <label for="tv4"
-      ><input type="checkbox" name="tv" value="tv4" id="tv4" />TV 4</label
-    >
-    <label for="tv5"
-      ><input type="checkbox" name="tv" value="tv5" id="tv5" />TV 5</label
-    >
+    <div id="tvSelectionDiv">
+      <!-- This is populated via insertListOfTVs() -->
+    </div>
 
     <p>
       Sel:
@@ -95,7 +83,7 @@
 
     <br /><br />
 
-    <a href="./Reference/KeyboardShortcuts.md" target="_blank" rel="noreferrer"
+    <a href="../Reference/KeyboardShortcuts.md" target="_blank" rel="noreferrer"
       >Keyboard Shortcuts</a
     >
 

@@ -22,18 +22,41 @@ const channelEnum = {
   YouTubeTV: 195316,
 };
 
-/*
-function bla() {
-  // this one works...
-  $.each(tvEnum, function (key, value) {
-    console.log('key: ', key, ' value: ', value);
-  });
+// Dynamically build checkboxes for TV's to be controlled.
+function insertListOfTVs() {
+  const tvListDiv = document.querySelector('div[id="tvSelectionDiv"]');
+
+  labelIncrement = 1;
+  for (const [key, value] of Object.entries(tvEnum)) {
+    // Create the label element
+    entryLabel = document.createElement('label');
+    entryLabel.setAttribute('for', key);
+
+    // crate the input entry element
+    entryInput = document.createElement('input');
+    entryInput.type = 'checkbox';
+    entryInput.name = 'tv';
+    entryInput.value = key;
+    entryInput.id = key;
+
+    // Add the input entry element to the label element
+    entryLabel.append(entryInput);
+    // Append label text
+    entryLabel.innerHTML = entryLabel.innerHTML.concat(`TV ${labelIncrement} `);
+
+    // Add the label to the div
+    tvListDiv.insertAdjacentElement('beforeend', entryLabel);
+    labelIncrement += 1;
+  }
+  updateTvCheckBoxes();
 }
-*/
 
 // List of TV's in scope for operation
 
-const tvCheckBoxes = document.querySelectorAll('input[name="tv"]');
+let tvCheckBoxes = document.querySelectorAll('input[name="tv"]');
+function updateTvCheckBoxes() {
+  tvCheckBoxes = document.querySelectorAll('input[name="tv"]');
+}
 
 // Functions associated with determining which TV's are in scope for operations
 
