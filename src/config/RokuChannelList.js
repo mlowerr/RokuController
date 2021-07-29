@@ -18,6 +18,9 @@ const channelEnum = {
     NBCSports:        { ChannelID: 53725,  DisplayName: 'NBC Sports',       Selected: false },
     NFL:              { ChannelID: 44856,  DisplayName: 'NFL',              Selected: false },
     Netflix:          { ChannelID: 12,     DisplayName: 'NetFlix',          Selected: false },
+    Newsmax:          { ChannelID: 24699,  DisplayName: 'Newsmax',          Selected: false },
+    RSBN:             { ChannelID: 620928, DisplayName: 'RSBN',             Selected: false },
+    Tasytrade:        { ChannelID: 11974,  DisplayName: 'Tastytrade',       Selected: false },
     YouTubeTV:        { ChannelID: 195316, DisplayName: 'YouTube TV',       Selected: true },
    
     /* eslint-enable prettier/prettier */
