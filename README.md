@@ -7,4 +7,4 @@ The project is inspired by the [Roku Remote Tool](http://devtools.web.roku.com/R
 Everything is known to work in this project except for the following:
 
 - For my setup, the 'power on' functionality only works if the TV's were last powered off in the last 30 to 60 minutes. I believe my TV's go into a deep sleep and stop responding to the API when this happens.
-- Volume adjustment by increment is not exact. The TV's to not appear to store a queue of incoming requests and the lag time needed between commands appears to be variable. Currently set to include a delay between commands that seems to work best for my setup. Still helpful in more quickly increases or decreasing volume.
+- Volume adjustment by increment is not exact. The TV's to not appear to store a queue of incoming requests and the lag time needed between commands appears to be variable. Currently set to include a delay between commands that seems to work best for my setup. Still helpful in more quickly increasing or decreasing volume.
