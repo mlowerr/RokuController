@@ -40,8 +40,28 @@ function powerOff() {
   keyAction(apiPathEnum.KEYPRESS_API_PATH, 'PowerOff');
 }
 
-function setHDMI1Input() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'InputHDMI1');
+function setHDMIInput(hdmiInputNumber) {
+  let selectedHDMIInput;
+
+  switch (hdmiInputNumber) {
+    case 1: {
+      selectedHDMIInput = 'InputHDMI1';
+      break;
+    }
+    case 2: {
+      selectedHDMIInput = 'InputHDMI2';
+      break;
+    }
+    case 3: {
+      selectedHDMIInput = 'InputHDMI3';
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, selectedHDMIInput);
 }
 
 function setHomeInput() {
@@ -171,6 +191,10 @@ addEventListener('keyup', (event) => {
     }
     case 'KeyC': {
       setHDMI1Input();
+      break;
+    }
+    case 'KeyR': {
+      setHDMI3Input();
       break;
     }
     case 'Digit1':
