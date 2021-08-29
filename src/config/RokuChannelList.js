@@ -21,7 +21,7 @@ const channelEnum = {
     Newsmax:          { ChannelID: 24699,  DisplayName: 'Newsmax',          Selected: false },
     RSBN:             { ChannelID: 620928, DisplayName: 'RSBN',             Selected: false },
     Tasytrade:        { ChannelID: 11974,  DisplayName: 'Tastytrade',       Selected: false },
-    YouTubeTV:        { ChannelID: 195316, DisplayName: 'YouTube TV',       Selected: true },
+    YouTubeTV:        { ChannelID: 195316, DisplayName: 'YouTube TV',       Selected: true  },
    
     /* eslint-enable prettier/prettier */
 };
