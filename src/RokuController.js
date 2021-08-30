@@ -166,7 +166,7 @@ addEventListener('keyup', (event) => {
       break;
     }
     case 'Enter': {
-      keyActionkSelect();
+      keyActionSelect();
       break;
     }
     case 'KeyM': {
