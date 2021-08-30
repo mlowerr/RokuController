@@ -9,6 +9,6 @@
 | K       | Decrease volume                        |
 | H       | Set input to home                      |
 | C       | Switch input to HDMI 1 (Chromcast)     |
-| R       | Switch input to HDMI 3 (Roku)          |
+| R       | Switch input to HDMI 3 (Raspberry Pi)  |
 | Y       | Launch YouTube TV Channel              |
 | # 1 - 5 | Toggle TV selection for next operation |
