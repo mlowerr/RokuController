@@ -18,12 +18,20 @@ function postRequest(cb, apiPath, operation) {
   $.post(tvEnum[cb.id].concat(apiPath).concat(operation));
 }
 
-function keyAction(apiPath, reqAction) {
+function generatePostRequests(apiPath, reqAction) {
   tvCheckBoxes.forEach((cb) => {
     if (cb.checked) {
       postRequest(cb, apiPath, reqAction);
     }
   });
+}
+
+function keypressAction(reqAction) {
+  generatePostRequests(apiPathEnum.KEYPRESS_API_PATH, reqAction);
+}
+
+function launchAction(reqAction) {
+  generatePostRequests(apiPathEnum.LAUCNH_API_PATH, reqAction);
 }
 
 // Remote actions
@@ -32,42 +40,34 @@ function keyAction(apiPath, reqAction) {
 // respond to this command.  The physical remote is needed to first turn the tv on.  This does work to turn a TV on that you
 // accidentilly turned them off.
 
-function powerAction(powerAction) {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, powerAction);
+function powerOn() {
+  keypressAction('PowerOn');
 }
 
-function setHDMIInput(hdmiInputNumber) {
-  let selectedHDMIInput;
+function powerOff() {
+  keypressAction('PowerOff');
+}
 
-  switch (hdmiInputNumber) {
-    case 1: {
-      selectedHDMIInput = 'InputHDMI1';
-      break;
-    }
-    case 2: {
-      selectedHDMIInput = 'InputHDMI2';
-      break;
-    }
-    case 3: {
-      selectedHDMIInput = 'InputHDMI3';
-      break;
-    }
-    default: {
-      break;
-    }
-  }
+function setHDMI1Input() {
+  keypressAction('InputHDMI1');
+}
 
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, selectedHDMIInput);
+function setHDMI2Input() {
+  keypressAction('InputHDMI2');
+}
+
+function setHDMI3Input() {
+  keypressAction('InputHDMI3');
 }
 
 function setHomeInput() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Home');
+  keypressAction('Home');
 }
 
 // This does not work with 100% accuracy.  There is a time between commands that the
 // TVs apparently need (no queing?), but it does help in quickly incrasing or decreasing
 // the volume.
-function volLoop(apiPath, reqAction) {
+function volLoop(reqAction) {
   let volumeIncrement = document.querySelector(
     'input[name="volIncrement"]'
   ).value;
@@ -81,66 +81,69 @@ function volLoop(apiPath, reqAction) {
 
   for (let x = 0; x < volumeIncrement; x += 1) {
     setTimeout(() => {
-      keyAction(apiPath, reqAction);
-    }, 500);
+      keypressAction(reqAction);
+    }, 400);
   }
 }
 
-function volAction(volAction) {
-  if (volAction === 'VolumeMute') {
-    keyAction(apiPathEnum.KEYPRESS_API_PATH, volAction);
-  } else {
-    // volAction == 'VolumeUp' or 'VolumeDown'
-    volLoop(apiPathEnum.KEYPRESS_API_PATH, volAction);
-  }
+function volUp() {
+  volLoop('VolumeUp');
+}
+
+function volDown() {
+  volLoop('VolumeDown');
+}
+
+function volMute() {
+  keypressAction('VolumeMute');
 }
 
 function keyActionBack() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Back');
+  keypressAction('Back');
 }
 
 function keyActionUp() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Up');
+  keypressAction('Up');
 }
 
 function keyActionDown() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Down');
+  keypressAction('Down');
 }
 
 function keyActionLeft() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Left');
+  keypressAction('Left');
 }
 
 function keyActionRight() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Right');
+  keypressAction('Right');
 }
 
 function keyActionSelect() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Select');
+  keypressAction('Select');
 }
 
 function keyActionRepeat() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Repeat');
+  keypressAction('Repeat');
 }
 
 function keyActionInfo() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Info');
+  keypressAction('Info');
 }
 
 function keyActionReverse() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Rev');
+  keypressAction('Rev');
 }
 
 function keyActionPlay() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Play');
+  keypressAction('Play');
 }
 
 function keyActionForward() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'Fwd');
+  keypressAction('Fwd');
 }
 
 function openChannel(channel) {
-  keyAction(apiPathEnum.LAUCNH_API_PATH, channelEnum[channel].ChannelID);
+  launchAction(channelEnum[channel].ChannelID);
 }
 
 // Keyboard shortcuts
@@ -163,19 +166,19 @@ addEventListener('keyup', (event) => {
       break;
     }
     case 'Enter': {
-      keyActionSelect();
+      keyActionkSelect();
       break;
     }
     case 'KeyM': {
-      volAction('VolumeMute');
+      volMute();
       break;
     }
     case 'KeyJ': {
-      volAction('VolumeUp');
+      volUp();
       break;
     }
     case 'KeyK': {
-      volAction('VolumeDown');
+      volDown();
       break;
     }
     case 'KeyH': {

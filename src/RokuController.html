@@ -19,9 +19,9 @@
 
     <p>
       Power: &nbsp; &nbsp;
-      <button id="powerOnBtn" onclick="powerAction('PowerOn')">TV On</button>
+      <button id="powerOnBtn" onclick="powerOn()">TV On</button>
       &nbsp;
-      <button id="powerOffBtn" onclick="powerAction('PowerOff')">TV Off</button>
+      <button id="powerOffBtn" onclick="powerOff()">TV Off</button>
     </p>
 
     <p>Select the TV(s) to operate on:</p>
@@ -38,9 +38,9 @@
 
     <p>
       Inp:
-      <button id="hdmi1Btn" onclick="setHDMIInput(1)">HDMI 1</button>
-      <button id="hdmi1Btn" onclick="setHDMIInput(2)">HDMI 2</button>
-      <button id="hdmi1Btn" onclick="setHDMIInput(3)">HDMI 3</button>
+      <button id="hdmi1Btn" onclick="setHDMI1Input()">HDMI 1</button>
+      <button id="hdmi1Btn" onclick="setHDMI2Input()">HDMI 2</button>
+      <button id="hdmi1Btn" onclick="setHDMI3Input()">HDMI 3</button>
       <button id="homeBtn" onclick="setHomeInput()">Home Screen</button>
       <label for="channelSelection">Channel:</label>
       <select id="channel" name="channel">
@@ -56,13 +56,9 @@
 
     <p>
       Vol:
-      <button id="volumeUpBtn" onclick="volAction('VolumeUp')">
-        Volume Up
-      </button>
-      <button id="volumeDownBtn" onclick="volAction('VolumeDown')">
-        Volume Down
-      </button>
-      <button id="volumeMuteBtn" onclick="volAction('VolumeMute')">Mute</button>
+      <button id="volumeUpBtn" onclick="volUp()">Volume Up</button>
+      <button id="volumeDownBtn" onclick="volDown()">Volume Down</button>
+      <button id="volumeMuteBtn" onclick="volMute()">Mute</button>
       <label for="volIncrement"
         >Inc:
         <input
