@@ -32,12 +32,8 @@ function keyAction(apiPath, reqAction) {
 // respond to this command.  The physical remote is needed to first turn the tv on.  This does work to turn a TV on that you
 // accidentilly turned them off.
 
-function powerOn() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'PowerOn');
-}
-
-function powerOff() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'PowerOff');
+function powerAction(powerAction) {
+  keyAction(apiPathEnum.KEYPRESS_API_PATH, powerAction);
 }
 
 function setHDMIInput(hdmiInputNumber) {
@@ -90,16 +86,13 @@ function volLoop(apiPath, reqAction) {
   }
 }
 
-function volUp() {
-  volLoop(apiPathEnum.KEYPRESS_API_PATH, 'VolumeUp');
-}
-
-function volDown() {
-  volLoop(apiPathEnum.KEYPRESS_API_PATH, 'VolumeDown');
-}
-
-function volMute() {
-  keyAction(apiPathEnum.KEYPRESS_API_PATH, 'VolumeMute');
+function volAction(volAction) {
+  if (volAction === 'VolumeMute') {
+    keyAction(apiPathEnum.KEYPRESS_API_PATH, volAction);
+  } else {
+    // volAction == 'VolumeUp' or 'VolumeDown'
+    volLoop(apiPathEnum.KEYPRESS_API_PATH, volAction);
+  }
 }
 
 function keyActionBack() {
@@ -174,15 +167,15 @@ addEventListener('keyup', (event) => {
       break;
     }
     case 'KeyM': {
-      volMute();
+      volAction('VolumeMute');
       break;
     }
     case 'KeyJ': {
-      volUp();
+      volAction('VolumeUp');
       break;
     }
     case 'KeyK': {
-      volDown();
+      volAction('VolumeDown');
       break;
     }
     case 'KeyH': {

@@ -19,8 +19,9 @@
 
     <p>
       Power: &nbsp; &nbsp;
-      <button id="powerOnBtn" onclick="powerOn()">TV On</button> &nbsp;
-      <button id="powerOffBtn" onclick="powerOff()">TV Off</button>
+      <button id="powerOnBtn" onclick="powerAction('PowerOn')">TV On</button>
+      &nbsp;
+      <button id="powerOffBtn" onclick="powerAction('PowerOff')">TV Off</button>
     </p>
 
     <p>Select the TV(s) to operate on:</p>
@@ -55,9 +56,13 @@
 
     <p>
       Vol:
-      <button id="volumeUpBtn" onclick="volUp()">Volume Up</button>
-      <button id="volumeDownBtn" onclick="volDown()">Volume Down</button>
-      <button id="volumeMuteBtn" onclick="volMute()">Mute</button>
+      <button id="volumeUpBtn" onclick="volAction('VolumeUp')">
+        Volume Up
+      </button>
+      <button id="volumeDownBtn" onclick="volAction('VolumeDown')">
+        Volume Down
+      </button>
+      <button id="volumeMuteBtn" onclick="volAction('VolumeMute')">Mute</button>
       <label for="volIncrement"
         >Inc:
         <input
