@@ -5,6 +5,7 @@ const channelEnum = {
    
     ABC:              { ChannelID: 73376,  DisplayName: 'ABC',                Selected: false },
     AmazonPrimeVideo: { ChannelID: 13,     DisplayName: 'Amazon Prime Video', Selected: false },
+    CBS:              { ChannelID: 619667, DisplayName: 'CBS'                 Selected: false },
     CBSSports:        { ChannelID: 17112,  DisplayName: 'CBS Sports',         Selected: false },
     CNBC:             { ChannelID: 9160,   DisplayName: 'CNBC',               Selected: false },
     ESPN:             { ChannelID: 34376,  DisplayName: 'ESPN',               Selected: false },
