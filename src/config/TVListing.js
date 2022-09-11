@@ -6,6 +6,7 @@ const tvEnum = {
   tv3: 'http://192.168.86.41:8060',
   tv4: 'http://192.168.86.29:8060',
   tv5: 'http://192.168.86.42:8060',
+  tv6: 'http://192.168.86.108:8060',
 };
 
 // List of TV's in scope for operation
