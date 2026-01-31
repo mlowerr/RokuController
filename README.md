@@ -1,10 +1,30 @@
 # RokuController
 
-This project started out as a "quick and dirty" controller in an attempt to avoid purchasing a "smart remote" or otherwise solving for the challenge of being able to change the inputs, channel, volume, etc. for a collection of multiple television sets that all respond to the same remote.
+RokuController is a lightweight, static HTML/JavaScript controller intended to manage multiple Roku TVs on the same network. It was built as a “quick and dirty” alternative to a smart remote for changing inputs, channels, volume, and navigation across a wall of TVs.
 
-The project is inspired by the [Roku Remote Tool](http://devtools.web.roku.com/RokuRemote/) application which supported most of the remote control functionality but required more back and fourth between modals than I wanted.
+The project is inspired by the [Roku Remote Tool](http://devtools.web.roku.com/RokuRemote/) application, but is optimized to reduce modal navigation and make multi-TV control easier.
 
-Everything is known to work in this project except for the following:
+## How it works
+- The UI is served from `src/RokuController.html`, which loads jQuery and the local controller/config scripts.
+- Roku commands are sent via the Roku External Control API (`/keypress/` and `/launch/` endpoints) using `POST` requests from `src/RokuController.js`.
+- TV discovery is manual: you configure device IPs in `src/config/TVListing.js`, and channels in `src/config/RokuChannelList.js`.
 
-- For my setup, the 'power on' functionality only works if the TV's were last powered off in the last 30 to 60 minutes. I believe my TV's go into a deep sleep and stop responding to the API when this happens.
-- Volume adjustment by increment is not exact. The TV's to not appear to store a queue of incoming requests and the lag time needed between commands appears to be variable. Currently set to include a delay between commands that seems to work best for my setup. Still helpful in more quickly increasing or decreasing volume.
+## Getting started
+1. Update `src/config/TVListing.js` with the correct IP addresses for each Roku device (default Roku ECP port is `8060`).
+2. Update `src/config/RokuChannelList.js` if you want to add/remove channels shown in the dropdown.
+3. Open `src/RokuController.html` in a browser (file:// or any static file server).
+
+## Project layout
+- `src/RokuController.html`: main UI.
+- `src/RokuController.js`: request helpers, command handlers, keyboard shortcuts.
+- `src/config/TVListing.js`: Roku device list + checkbox rendering.
+- `src/config/RokuChannelList.js`: channel metadata for launch actions.
+- `Reference/KeyboardShortcuts.md`: keyboard shortcuts reference.
+
+## Tooling
+- Lint: `npm run lint` (ESLint + Wes Bos config + Prettier).
+- Tests: none configured (`npm test` exits with a message).
+
+## Known limitations
+- Power on works only if TVs were powered off recently; some devices appear to enter deep sleep and stop responding to the API.
+- Volume increments are not exact due to device latency and lack of request queueing; a small delay is used between commands to mitigate this.
